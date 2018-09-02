@@ -40,12 +40,20 @@ To be able to share world map we will be using [MultiPeer Connectivity](https://
 
 All this is already coded for you with comments, you can find it in this file [MultipeerSession]() and you can also coded it yourself if you want to. 
 
-We will be recieving the data and then processing that data, since it can be either a WorldMap or ARAnchor to add to the session. 
+We will be recieving the data from the `session(_:didReceive:fromPeer:)` and then processing that data, since it can be either a WorldMap or ARAnchor to add to the session. 
 
 `let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data)`
 `let anchor = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARAnchor.self, from: data)`
 
-To send data is very similar, after you have place a new model for the user you create the data object. 
+ARKit then attempts to relocalize to the new world map—that is, to reconcile the received spatial-mapping information with what it senses of the local environment. For best results:
+
+ - Thoroughly scan the local environment on the sending device before sharing a world map.
+
+- Place the receiving device next to the sending device, so that both see the same view of the environment.
+
+> Recording and transmitting a world map and relocalizing to a world map are time-consuming, bandwidth-intensive operations, so you should take those steps only once, when a new device joins a session.
+
+On our project we will be mostly sending Anchors and 3Models to the other participants. To send data is very similar, after you have place a new model for the user you create the data object. 
 
 `let data = try? NSKeyedArchiver.archivedData(withRootObject: anchor, requiringSecureCoding: true)` 
 
@@ -54,6 +62,8 @@ And send that to all peers who would recieve it as a `ARAnchor` . You can also g
 `getCurrentWorldMap(completionHandler:)` 
 
 `let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)`
+
+For our workshop we will also be using our own SCNodes that have some specific properties(color and status) so we will be also Archiving those using Codable and looking for which node has been added/removed. 
 
 > Important This app automatically joins the first nearby session it finds. Depending on the kind of shared AR experience you want to create, you may want to more precisely control broadcasting, invitation, and acceptance behavior. See the MultipeerConnectivity documentation for details.
 
