@@ -10,6 +10,7 @@ You will need:
 The workshop can be done without sharing the map with other users, just playing the simple game on AR too. 
 
 [Slides for the workshop](https://docs.google.com/presentation/d/1ruVNwLWbEsMXsBcWwMjfdE4sRSYYOohwrMeanObjiuk/edit?usp=sharing)
+
 [Multi User Experience on AR](https://developer.apple.com/documentation/arkit/creating_a_multiuser_ar_experience) by Apple
 
 ## ARKit basics 
@@ -43,13 +44,10 @@ All this is already coded for you with comments, you can find it in this file [M
 We will be recieving the data from the `session(_:didReceive:fromPeer:)` and then processing that data, since it can be either a WorldMap or ARAnchor to add to the session. 
 
 `let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data)`
+
 `let anchor = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARAnchor.self, from: data)`
 
-ARKit then attempts to relocalize to the new world map—that is, to reconcile the received spatial-mapping information with what it senses of the local environment. For best results:
-
- - Thoroughly scan the local environment on the sending device before sharing a world map.
-
-- Place the receiving device next to the sending device, so that both see the same view of the environment.
+ARKit then attempts to relocalize to the new world map—that is, to reconcile the received spatial-mapping information with what it senses of the local environment. 
 
 > Recording and transmitting a world map and relocalizing to a world map are time-consuming, bandwidth-intensive operations, so you should take those steps only once, when a new device joins a session.
 
@@ -80,7 +78,11 @@ The project contains some 3D models but you can build your app with any 3D non c
 - [Google Poly](https://poly.google.com/category/objects) Big library, very complex objects that are downloadable in `.obj` format. It can be transformed into `.scn` format but most of the objects do not come with childNodes. Making it difficult to animate and transform. 
 
 ## Game Logic 
-The game is simple, each one of you have a 3D model with a specific color. 
+The game is a 3D version of a tag game. Each one of us has a color attached to their Nodes that is defined on start. 
+
+> Ideally if this was a real game we will have an extra controller where the user gets to choose the color, plus add a name, etc. But we will be skipping this part during the workshop. 
+
+
 
 ## Want more? 
 

@@ -24,11 +24,16 @@ class ViewController: UIViewController {
     //to remember who provided the map (device) and show it to the UI
     var mapProvider: MCPeerID?
 
+    //Configuration for the Nodes created
+    var nodeConfiguration: NodeConfiguration!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         multipeerSession = MultipeerSession(receivedDataHandler: receivedData)
-       
+        nodeConfiguration = NodeConfiguration(name: "star",
+                                              color: UIColor.random(),
+                                              owner: MCPeerID(displayName: UIDevice.current.name))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,7 +58,7 @@ class ViewController: UIViewController {
 
     /// - Tag: PlaceCharacter
     @IBAction func handleSceneTap(_ sender: UITapGestureRecognizer) {
-
+        //Add new node to scene and send the new node to the other peers
     }
 
     // MARK: - ARSession
