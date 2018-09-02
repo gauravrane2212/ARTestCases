@@ -11,5 +11,16 @@ import SceneKit
 
 class GameNode: SCNNode {
 
-    
+    private var nodeStatus: NodeStatus?
+    let configuration: NodeConfiguration
+
+    init(nodeConfiguration: NodeConfiguration) {
+        self.configuration = nodeConfiguration
+        super.init()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
 }
